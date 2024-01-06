@@ -2011,6 +2011,11 @@ strong {
     left: 0;
   }
 }
+@media screen and (max-width: 768px) {
+  #nav-console {
+    display: none;
+  }
+}
 .layout {
   display: flex;
   margin: 0 auto;
