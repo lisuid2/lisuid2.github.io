@@ -1,0 +1,23 @@
+extends includes/layout.pug
+
+block content
+    main.layout#content-inner
+        #post
+            if theme.thirdparty.ai.enable
+                include includes/widgets/third-party/ai/index
+            article.post-content#article-container!= page.content
+            include includes/widgets/post/copyright
+            .post-tools-right
+                .tag_share
+                    .post-meta__tag-list
+                        each data in page.tags.data
+                            a(href=url_for(data.path)).post-meta__tags
+                                span.tags-punctuation
+                                | #{data.name}
+                                span.tagsPageCount #{data.length}
+            if site.posts.length > 1
+                include includes/widgets/post/postNav
+            != related_posts(page, site.posts)
+            if page.comment
+                include includes/widgets/third-party/comments/comment
+        include includes/widgets/aside/aside<script>const posts=["2024/01/06/hello-world/"];function toRandomPost(){ pjax.loadUrl('/'+posts[Math.floor(Math.random()*posts.length)]); };</script>

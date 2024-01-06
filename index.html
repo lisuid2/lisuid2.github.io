@@ -1,0 +1,20 @@
+extends includes/layout.pug
+
+block content
+    #home_top
+        if(theme.says.home_mini)
+            include ./includes/widgets/home/bbTimeList.pug
+        if(theme.hometop.banner.enable)
+            include ./includes/widgets/home/hometop.pug
+    main.layout#content-inner
+        .recent-posts#recent-posts
+            #category-bar
+                include ./includes/widgets/home/categoryBar.pug
+            for post in page.posts.sort("-sticky" || "-date").data
+                include ./includes/widgets/home/postList.pug
+
+            // pageination
+            include ./includes/mixins/pagination.pug
+
+        // aside
+        include ./includes/widgets/aside/aside.pug<script>const posts=["2024/01/06/hello-world/"];function toRandomPost(){ pjax.loadUrl('/'+posts[Math.floor(Math.random()*posts.length)]); };</script>
