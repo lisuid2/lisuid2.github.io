@@ -1589,20 +1589,9 @@ strong {
     color: var(--sco-card-bg);
   }
 }
-#nav #site-name i {
-  font-size: 16px;
-  line-height: 35px;
-  padding: 0 12px;
-}
 @media screen and (max-width: 768px) {
-  #nav #site-name i {
-    transition: 0.1s;
-  }
-}
-@media screen and (min-width: 900px) {
-  #nav #site-name i {
-    opacity: 1;
-    transition: all 0.3s, color 0s, opacity 0.3s;
+  #nav #site-name span {
+    padding-left: 8px;
   }
 }
 #nav #blog_name {
