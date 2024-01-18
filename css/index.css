@@ -5184,6 +5184,18 @@ padding-bottom
   font-size: 14px;
   opacity: 0.6;
 }
+#aside-content .card-tag-cloud a[href*="/tags/Solitude-%E4%BD%BF%E7%94%A8/"] {
+  color: var(--sco-lighttext);
+  font-weight: 500;
+}
+#aside-content .card-tag-cloud a[href*="/tags/%E7%9F%A5%E8%AF%86/"] {
+  color: var(--sco-lighttext);
+  font-weight: 500;
+}
+#aside-content .card-tag-cloud a[href*="/tags/%E6%95%99%E7%A8%8B/"] {
+  color: var(--sco-lighttext);
+  font-weight: 500;
+}
 #aside-content .card-history .swiper-wrapper {
   flex-direction: column;
 }
