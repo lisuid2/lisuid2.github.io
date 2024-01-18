@@ -1,1 +1,173 @@
-const utils={debounce:function(t,e,n){let o;return function(){const i=this,a=arguments,s=n&&!o;clearTimeout(o),o=setTimeout((function(){o=null,n||t.apply(i,a)}),e),s&&t.apply(i,a)}},throttle:function(t,e,n){let o,i,a,s=0;n||(n={});const l=function(){s=!1===n.leading?0:(new Date).getTime(),t.apply(i,a),i=a=null};return function(){const d=(new Date).getTime();s||!1!==n.leading||(s=d);const r=e-(d-s);i=this,a=arguments,r<=0||r>e?(o&&(clearTimeout(o),o=null),s=d,t.apply(i,a),o||(i=a=null)):o||!1===n.trailing||(o=setTimeout(l,r))}},fadeIn:(t,e)=>{t.style.cssText=`display:block;animation: to_show ${e}s`},fadeOut:(t,e)=>{t.addEventListener("animationend",(function e(){t.style.cssText="display: none; animation: '' ",t.removeEventListener("animationend",e)})),t.style.animation=`to_hide ${e}s`},sidebarPaddingR:()=>{const t=window.innerWidth,e=document.body.clientWidth,n=t-e;t!==e&&(document.body.style.paddingRight=n+"px")},snackbarShow:(t,e,n)=>{const o=void 0!==e&&e,i=void 0!==n?n:5e3;document.styleSheets[0].addRule(":root","--sco-snackbar-time:"+i+"ms!important"),Snackbar.show({text:t,showAction:o,duration:i,pos:"top-center"})},copy:async t=>{try{await navigator.clipboard.writeText(t),utils.snackbarShow(GLOBAL_CONFIG.lang.copy.success,!1,2e3)}catch(t){utils.snackbarShow(GLOBAL_CONFIG.lang.copy.error,!1,2e3)}},getEleTop:t=>{let e=0;for(;t;)e+=t.offsetTop,t=t.offsetParent;return e},randomNum:t=>Math.floor(Math.random()*t),timeDiff:(t,e)=>{const n=e.getTime()-t.getTime();return Math.floor(n/864e5)},scrollToDest:(t,e=500)=>{const n=window.pageYOffset,o=document.getElementById("page-header").classList.contains("nav-fixed");if((n>t||o)&&(t-=70),"scrollBehavior"in document.documentElement.style)return void window.scrollTo({top:t,behavior:"smooth"});let i=null;const a=t-n;window.requestAnimationFrame((function o(s){i=i||s;const l=s-i;l<e?(window.scrollTo(0,n+a*l/e),window.requestAnimationFrame(o)):window.scrollTo(0,t)}))},siblings:(t,e)=>[...t.parentNode.children].filter((n=>e?n!==t&&n.matches(e):n!==t)),isMobile:()=>/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),isHidden:t=>0===t.offsetHeight&&0===t.offsetWidth,addEventListenerPjax:function(t,e,n,o=!1){null!=t&&(t.addEventListener(e,n,o),utils.addGlobalFn("pjax",(function(){t.removeEventListener(e,n,o)})))},addGlobalFn:(t,e,n=!1,o=window)=>{const i=o.globalFn||{},a=i[t]||{};n&&a[n]||(a[n=n||Object.keys(a).length]=e,i[t]=a,o.globalFn=i)},animateIn:(t,e)=>{t.style.display="block",t.style.animation=e},animateOut:(t,e)=>{t.addEventListener("animationend",(function e(){t.style.display="",t.style.animation="",t.removeEventListener("animationend",e)})),t.style.animation=e}};
+const utils = {
+    debounce: function (func, wait, immediate) {
+        let timeout
+        return function () {
+            const context = this
+            const args = arguments
+            const later = function () {
+                timeout = null
+                if (!immediate) func.apply(context, args)
+            }
+            const callNow = immediate && !timeout
+            clearTimeout(timeout)
+            timeout = setTimeout(later, wait)
+            if (callNow) func.apply(context, args)
+        }
+    },
+
+    throttle: function (func, wait, options) {
+        let timeout, context, args
+        let previous = 0
+        if (!options) options = {}
+
+        const later = function () {
+            previous = options.leading === false ? 0 : new Date().getTime()
+            func.apply(context, args)
+            context = args = null
+        }
+
+        return function () {
+            const now = new Date().getTime()
+            if (!previous && options.leading === false) previous = now
+            const remaining = wait - (now - previous)
+            context = this
+            args = arguments
+            if (remaining <= 0 || remaining > wait) {
+                if (timeout) {
+                    clearTimeout(timeout)
+                    timeout = null
+                }
+                previous = now
+                func.apply(context, args)
+                if (!timeout) context = args = null
+            } else if (!timeout && options.trailing !== false) {
+                timeout = setTimeout(later, remaining)
+            }
+        }
+    },
+
+    fadeIn: (ele, time) => {
+        ele.style.cssText = `display:block;animation: to_show ${time}s`
+    },
+
+    fadeOut: (ele, time) => {
+        ele.addEventListener('animationend', function f() {
+            ele.style.cssText = "display: none; animation: '' "
+            ele.removeEventListener('animationend', f)
+        })
+        ele.style.animation = `to_hide ${time}s`
+    },
+
+    sidebarPaddingR: () => {
+        const innerWidth = window.innerWidth
+        const clientWidth = document.body.clientWidth
+        const paddingRight = innerWidth - clientWidth
+        if (innerWidth !== clientWidth) {
+            document.body.style.paddingRight = paddingRight + 'px'
+        }
+    },
+
+    snackbarShow: (text, showAction, duration) => {
+        const sa = (typeof showAction !== 'undefined') ? showAction : false
+        const dur = (typeof duration !== 'undefined') ? duration : 5000
+        document.styleSheets[0].addRule(':root', '--sco-snackbar-time:' + dur + 'ms!important')
+        Snackbar.show({
+            text: text,
+            showAction: sa,
+            duration: dur,
+            pos: 'top-center'
+        })
+    },
+
+    copy: async (text) => {
+        try {
+            await navigator.clipboard.writeText(text)
+            utils.snackbarShow(GLOBAL_CONFIG.lang.copy.success, false, 2000)
+        } catch (err) {
+            utils.snackbarShow(GLOBAL_CONFIG.lang.copy.error, false, 2000)
+        }
+    },
+
+    getEleTop: ele => {
+        let actualTop = 0
+        while (ele) {
+            actualTop += ele.offsetTop
+            ele = ele.offsetParent
+        }
+        return actualTop
+    },
+
+    randomNum: (length) => {
+        return Math.floor(Math.random() * length)
+    },
+
+    timeDiff: (timeObj, today) => {
+        const timeDiff = today.getTime() - timeObj.getTime();
+        return Math.floor(timeDiff / (1000 * 3600 * 24));
+    },
+
+    scrollToDest: (pos, time = 500) => {
+        const currentPos = window.pageYOffset
+        const isNavFixed = document.getElementById('page-header').classList.contains('nav-fixed')
+        if (currentPos > pos || isNavFixed) pos = pos - 70
+        if ('scrollBehavior' in document.documentElement.style) {
+            window.scrollTo({
+                top: pos,
+                behavior: 'smooth'
+            })
+            return
+        }
+        let start = null
+        const distance = pos - currentPos
+        window.requestAnimationFrame(function step(currentTime) {
+            start = !start ? currentTime : start
+            const progress = currentTime - start
+            if (progress < time) {
+                window.scrollTo(0, currentPos + distance * progress / time)
+                window.requestAnimationFrame(step)
+            } else {
+                window.scrollTo(0, pos)
+            }
+        })
+    },
+    siblings: (ele, selector) => {
+        return [...ele.parentNode.children].filter((child) => {
+            if (selector) {
+                return child !== ele && child.matches(selector)
+            }
+            return child !== ele
+        })
+    },
+    isMobile: () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+    isHidden: e => 0 === e.offsetHeight && 0 === e.offsetWidth,
+    addEventListenerPjax: function (element, eventType, callback, useCapture = false) {
+        if (element == null) return
+        element.addEventListener(eventType, callback, useCapture);
+        utils.addGlobalFn("pjax", function () {
+            element.removeEventListener(eventType, callback, useCapture);
+        });
+    },
+    addGlobalFn: (key, fn, name = false, parent = window) => {
+        const globalFn = parent.globalFn || {}
+        const keyObj = globalFn[key] || {}
+
+        if (name && keyObj[name]) return
+
+        name = name || Object.keys(keyObj).length
+        keyObj[name] = fn
+        globalFn[key] = keyObj
+        parent.globalFn = globalFn
+    },
+    animateIn: (ele, text) => {
+        ele.style.display = 'block'
+        ele.style.animation = text
+    },
+    animateOut: (ele, text) => {
+        ele.addEventListener('animationend', function f() {
+            ele.style.display = ''
+            ele.style.animation = ''
+            ele.removeEventListener('animationend', f)
+        })
+        ele.style.animation = text
+    }
+}
