@@ -1,1 +1,20 @@
-#fps{position:fixed;right:10px;bottom:10px;z-index:1919810}[data-theme=light] #fps{background-color:rgba(255,255,255,.85);backdrop-filter:var(--backdrop-filter);padding:4px;border-radius:4px}[data-theme=dark] #fps{background-color:rgba(0,0,0,.72);backdrop-filter:var(--backdrop-filter);padding:4px;border-radius:4px}
+/* 帧率检测 */
+#fps {
+  position: fixed;
+  /* 指定位置 */
+  right: 10px;
+  bottom: 10px;
+  z-index: 1919810;
+}
+[data-theme="light"] #fps {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: var(--backdrop-filter);
+  padding: 4px;
+  border-radius: 4px;
+}
+[data-theme="dark"] #fps {
+  background-color: rgba(0, 0, 0, 0.72);
+  backdrop-filter: var(--backdrop-filter);
+  padding: 4px;
+  border-radius: 4px;
+}
