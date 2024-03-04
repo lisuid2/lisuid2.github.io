@@ -1,6 +1,3 @@
-/**
- * side menu
- */
 const sidebarFn = () => {
     const $toggleMenu = document.getElementById('toggle-menu')
     const $mobileSidebarMenus = document.getElementById('sidebar-menus')
@@ -36,9 +33,6 @@ const sidebarFn = () => {
     })
 }
 
-/**
- * 滚动处理
- */
 const scrollFn = function () {
     const innerHeight = window.innerHeight;
     const $header = document.getElementById('page-header');
@@ -70,9 +64,6 @@ const scrollFn = function () {
     }
 }
 
-/**
- * 滑动导航栏数字变化
- */
 const percent = () => {
     let scrollTop = document.documentElement.scrollTop || window.pageYOffset
     let totalHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight) - document.documentElement.clientHeight
@@ -117,14 +108,16 @@ const showTodayCard = () => {
     }
 }
 
-/**
- * 修改时间格式
- */
 const changeTimeFormat = () => {
-    const timeElements = document.getElementsByTagName("time"), lang = GLOBAL_CONFIG.lang.time
-    for (let i = 0; i < timeElements.length; i++) {
-        const datetime = timeElements[i].getAttribute("datetime"), timeObj = new Date(datetime),
-            daysDiff = utils.timeDiff(timeObj, new Date())
+    const timeElements = Array.from(document.getElementsByTagName("time"));
+    const lang = GLOBAL_CONFIG.lang.time;
+    const currentDate = new Date();
+
+    timeElements.forEach(timeElement => {
+        const datetime = timeElement.getAttribute("datetime");
+        const timeObj = new Date(datetime);
+        const daysDiff = utils.timeDiff(timeObj, currentDate);
+
         let timeString;
         if (daysDiff === 0) {
             timeString = lang.recent;
@@ -133,21 +126,18 @@ const changeTimeFormat = () => {
         } else if (daysDiff === 2) {
             timeString = lang.berforeyesterday;
         } else if (daysDiff <= 7) {
-            timeString = daysDiff + lang.daybefore;
+            timeString = `${daysDiff}${lang.daybefore}`;
         } else {
-            if (timeObj.getFullYear() !== new Date().getFullYear()) {
-                timeString = timeObj.getFullYear() + "/" + (timeObj.getMonth() + 1) + "/" + timeObj.getDate();
+            if (timeObj.getFullYear() !== currentDate.getFullYear()) {
+                timeString = `${timeObj.getFullYear()}/${timeObj.getMonth() + 1}/${timeObj.getDate()}`;
             } else {
-                timeString = (timeObj.getMonth() + 1) + "/" + timeObj.getDate();
+                timeString = `${timeObj.getMonth() + 1}/${timeObj.getDate()}`;
             }
         }
-        timeElements[i].textContent = timeString;
-    }
+        timeElement.textContent = timeString;
+    });
 }
 
-/*
- * 文章页右下角下一篇
- */
 const initObserver = () => {
     let commentElement = document.getElementById("post-comment");
     let paginationElement = document.getElementById("pagination");
@@ -192,6 +182,7 @@ class toc {
         const $tocContent = document.getElementById('toc-content')
         const list = $article.querySelectorAll('h1,h2,h3,h4,h5,h6')
         let detectItem = ''
+
         function autoScroll(el) {
             const activePosition = el.getBoundingClientRect().top
             const sidebarScrollTop = $tocContent.scrollTop
@@ -202,6 +193,7 @@ class toc {
                 $tocContent.scrollTop = sidebarScrollTop - 150
             }
         }
+
         function findHeadPosition(top) {
             if (top === 0) {
                 return false
@@ -230,6 +222,7 @@ class toc {
                 }
             }
         }
+
         window.tocScrollFn = utils.throttle(function () {
             const currentTop = window.scrollY || document.documentElement.scrollTop
             findHeadPosition(currentTop)
@@ -243,94 +236,6 @@ let lastSayHello = "";
 let wleelw_musicPlaying = false
 
 let sco = {
-    /**
-     * 个性定位
-     */
-    card_welcome: function () {
-        ipLoacation = window.saveToLocal.get('ipLocation');
-        if (!ipLoacation) {
-            // 数据已过期或不存在
-            let script = document.createElement('script');
-            let url = `https://apis.map.qq.com/ws/location/v1/ip?key=${txkey}&output=jsonp`;
-            script.src = url;
-            window.QQmap = function (data) {
-                ipLoacation = data;
-                // 将数据保存到 localStorage，过期时间设置为 1 天
-                window.saveToLocal.set('ipLocation', ipLoacation, 1);
-                document.body.removeChild(script);
-                delete window.QQmap;
-            };
-            document.body.appendChild(script);
-        }
-        showWelcome();
-    },
-    /**
-     * 那年今日
-     */
-    card_history: function () {
-        if (document.getElementById('history-container')) {
-            async function fetchHistoryData() {
-                let myDate = new Date();
-                let myMonth = myDate.getMonth() + 1;
-                let getDate = myDate.getDate();
-                let getMonth = myMonth < 10 ? "0" + myMonth : "" + myMonth;
-                let getDay = getDate < 10 ? "0" + getDate : "" + getDate;
-                let getMonthDate = "S" + getMonth + getDay;
-                let history_data_url = `https://cdn.meuicat.com/gh/Zfour/Butterfly-card-history@2.08/${getMonth}.json`;
-
-                let response = await fetch(history_data_url);
-                let data = await response.json();
-                return data[getMonthDate];
-            }
-
-            function append(parent, text) {
-                let temp = document.createElement('div');
-                temp.innerHTML = text;
-                let frag = document.createDocumentFragment();
-                while (temp.firstChild) {
-                    frag.appendChild(temp.firstChild);
-                }
-                parent.appendChild(frag);
-            }
-
-            fetchHistoryData().then(data => {
-                let html_item = data.map(item => `
-            <div class="swiper-slide history_slide">
-                <span class="history_slide_time">A.D.${item.year}</span>
-                <span class="history_slide_link">${item.title}</span>
-            </div>
-        `).join('');
-                let history_container_wrapper = document.getElementById('history_container_wrapper');
-                append(history_container_wrapper, html_item);
-                let swiper_history = new Swiper('.history_swiper-container', {
-                    passiveListeners: true,
-                    spaceBetween: 30,
-                    effect: 'coverflow',
-                    coverflowEffect: {
-                        rotate: 30,
-                        slideShadows: false,
-                    },
-                    loop: true,
-                    direction: 'vertical',
-                    autoplay: {
-                        disableOnInteraction: true,
-                        delay: 5000
-                    },
-                    mousewheel: false,
-                });
-                let history_container = document.getElementById('history-container');
-                history_container.onmouseenter = function () {
-                    swiper_history.autoplay.stop();
-                };
-                history_container.onmouseleave = function () {
-                    swiper_history.autoplay.start();
-                }
-            });
-        }
-    },
-    /**
-     * 隐藏协议小助手
-     */
     hideCookie: function () {
         setTimeout(() => {
             const cookiesWindow = document.getElementById("cookies-window");
@@ -342,10 +247,6 @@ let sco = {
             }
         }, 3000);
     },
-    /**
-     * 平滑滚动处理
-     * @param elementId
-     */
     scrollTo: function (elementId) {
         const targetElement = document.getElementById(elementId);
         if (targetElement) {
@@ -363,9 +264,6 @@ let sco = {
             }));
         }
     },
-    /**
-     * 控制台热评隐藏显示切换
-     */
     switchCommentBarrage: function () {
         let commentBarrageElement = document.querySelector(".comment-barrage");
         if (commentBarrageElement) {
@@ -382,23 +280,31 @@ let sco = {
             }
         }
     },
-    /**
-     * 控制台侧边栏隐藏显示切换
-     */
     switchHideAside: function () {
         const htmlClassList = document.documentElement.classList;
         htmlClassList.contains("hide-aside") ? saveToLocal.set("aside-status", "show", 1) : saveToLocal.set("aside-status", "hide", 1)
         htmlClassList.toggle("hide-aside");
         htmlClassList.contains("hide-aside") ? document.querySelector("#consoleHideAside").classList.add("on") : document.querySelector("#consoleHideAside").classList.remove("on");
     },
+    switchKeyboard: function () {
+        sco_keyboards = !sco_keyboards;
+        const consoleKeyboard = document.querySelector("#consoleKeyboard");
+        if (sco_keyboards) {
+            consoleKeyboard.classList.add("on");
+            openKeyboard()
+            localStorage.setItem("keyboard", true);
+        } else {
+            closeKeyboard()
+            consoleKeyboard.classList.remove("on");
+            localStorage.setItem("keyboard", false);
+            document.getElementById('keyboard-tips')?.classList.remove('show')
+        }
+    },
     initConsoleState: function () {
         document.documentElement.classList.contains("hide-aside") ? document.querySelector("#consoleHideAside").classList.add("on") : document.querySelector("#consoleHideAside").classList.remove("on")
     },
-    /**
-     * 个人信息顶部
-     */
     changeSayHelloText: function () {
-        const greetings = ["🤖️ 数码科技爱好者", "🔍 分享与热心帮助", "🏠 智能家居小能手", "🔨 设计开发一条龙", "🤝 专修交互与设计", "🏃 脚踏实地行动派", "🧱 团队小组发动机", "💢 壮汉人狠话不多"];
+        const greetings = GLOBAL_CONFIG.aside.sayhello2;
         const greetingElement = document.getElementById("author-info__sayhi");
         let randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
         while (randomGreeting === lastSayHello) {
@@ -407,9 +313,6 @@ let sco = {
         greetingElement.textContent = randomGreeting;
         lastSayHello = randomGreeting;
     },
-    /**
-     * 昼夜切换
-     */
     switchDarkMode: function () {
         let nowMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' :
             'light'
@@ -417,90 +320,46 @@ let sco = {
             document.documentElement.setAttribute('data-theme', 'dark')
             saveToLocal.set('theme', 'dark', 0.02);
             utils.snackbarShow(GLOBAL_CONFIG.lang.theme.dark, false, 2000)
-            document.querySelector(".menu-darkmode-text").textContent = "深色模式";
+            GLOBAL_CONFIG.rightside && (document.querySelector(".menu-darkmode-text").textContent = "浅色模式");
         } else {
             document.documentElement.setAttribute('data-theme', 'light')
             saveToLocal.set('theme', 'light', 0.02);
             utils.snackbarShow(GLOBAL_CONFIG.lang.theme.light, false, 2000)
-            document.querySelector(".menu-darkmode-text").textContent = "浅色模式";
+            GLOBAL_CONFIG.rightside && (document.querySelector(".menu-darkmode-text").textContent = "深色模式");
         }
     },
-    hideTodayCard: function () {
-        document.getElementById('todayCard').classList.add('hide')
-    },
-    /**
-     * 返回顶部
-     */
-    toTop: function () {
-        utils.scrollToDest(0)
-    },
-    /**
-     * 显示控制台
-     */
+    hideTodayCard: () => document.getElementById('todayCard').classList.add('hide'),
+    toTop: () => utils.scrollToDest(0),
+
     showConsole: function () {
         let el = document.getElementById('console')
-        if (!el.classList.contains('show')) {
+        if (el && !el.classList.contains('show')) {
             el.classList.add('show')
         }
     },
-    /**
-     * 隐藏控制台
-     */
     hideConsole: function () {
         const el = document.getElementById('console')
-        if (el.classList.contains('show')) {
-            el.classList.remove('show')
-        }
+        el && el.classList.remove('show')
     },
-    /**
-     * 灯箱使用
-     */
-    lightbox: function () {
-        window.ViewImage && window.ViewImage.init("#article-container img:not(.flink-avatar), .bber-content-img img, #album_detail img, #equipment img, #twikoo .tk-content img:not(.tk-owo-emotion)");
-    },
-    /**
-     *
-     */
     reflashEssayWaterFall: function () {
-        if (document.getElementById('waterfall')) {
+        const el = document.getElementById('waterfall')
+        el && (() => {
             setTimeout(function () {
                 waterfall('#waterfall');
-                document.getElementById("waterfall").classList.add('show');
+                el.classList.add('show');
             }, 500);
-        }
+        })();
     },
-    /**
-     * 更新站点运行时间
-     */
     addRuntime: function () {
         let el = document.getElementById('runtimeshow')
-        if (el && GLOBAL_CONFIG.runtime) {
-            el.innerText = utils.timeDiff(new Date(GLOBAL_CONFIG.runtime), new Date()) + GLOBAL_CONFIG.lang.time.runtime
-        }
+        el && GLOBAL_CONFIG.runtime && (el.innerText = utils.timeDiff(new Date(GLOBAL_CONFIG.runtime), new Date()) + GLOBAL_CONFIG.lang.time.runtime)
     },
-    /**
-     * 懒加载图片
-     */
-    lazyloadImg: function () {
-        window.lazyLoadInstance = new LazyLoad({
-            elements_selector: 'img',
-            threshold: 0,
-            data_src: 'lazy-src',
-            callback_error: (img) => {
-                img.setAttribute("src", GLOBAL_CONFIG.lazyload.error);
-            }
-        })
-    },
-    /**
-     * 跳转到输评论
-     * @param txt
-     */
     toTalk: function (txt) {
         const inputs = ["#wl-edit", ".el-textarea__inner"]
         for (let i = 0; i < inputs.length; i++) {
             let el = document.querySelector(inputs[i])
             if (el != null) {
-                el.dispatchEvent(new Event('input', { bubble: true, cancelable: true }))
+                el.dispatchEvent(new Event('input', {bubble: true, cancelable: true}))
                 el.value = '> ' + txt.replace(/\n/g, '\n> ') + '\n\n'
                 utils.scrollToDest(utils.getEleTop(document.getElementById('post-comment')), 300)
                 el.focus()
@@ -512,9 +371,6 @@ let sco = {
             commentTips.classList.add("show");
         }
     },
-    /**
-     * 初始化即刻mini
-     */
     initbbtalk: function () {
         if (document.querySelector('#bber-talk')) {
             let swiper = new Swiper('.swiper-container', {
@@ -527,9 +383,6 @@ let sco = {
             });
         }
     },
-    /**
-     * 图片添加底部展示信息
-     */
     addPhotoFigcaption: function () {
         let images = document.querySelectorAll('#article-container img');
         images.forEach((image) => {
@@ -545,9 +398,6 @@ let sco = {
             }
         });
     },
-    /**
-     * 下载图片并添加水印
-     */
     downloadImage: function (imageUrl, filename = 'photo') {
         if (rm.downloadimging) {
             utils.snackbarShow("有正在进行中的下载，请稍后再试");
@@ -580,10 +430,6 @@ let sco = {
         };
         img.src = imageUrl;
     },
-
-    /**
-     * 音乐播放暂停
-     */
     musicToggle: function () {
         const $music = document.querySelector('#nav-music');
         const $meting = document.querySelector('meting-js');
@@ -601,48 +447,33 @@ let sco = {
         }
         rm.hideRightMenu();
     },
-    /**
-     * 音乐上一首
-     */
     musicSkipBack: function () {
         document.querySelector('meting-js').aplayer.skipBack()
         rm.hideRightMenu()
     },
-    /**
-     * 音乐下一首
-     */
     musicSkipForward: function () {
         document.querySelector('meting-js').aplayer.skipForward()
         rm.hideRightMenu()
     },
-    /**
-     * 获取歌曲名称
-     */
     musicGetName: function () {
         const titles = Array.from(document.querySelectorAll('.aplayer-title')).map(e => e.innerText);
         return titles[0];
     },
-    /**
-     * 跳转到评论
-     */
     scrollToComment: function () {
         utils.scrollToDest(utils.getEleTop(document.getElementById('post-comment')), 300)
     },
-    /**
-     * 个人信息顶部文字更新
-     */
     setTimeState: function () {
         const el = document.getElementById('author-info__sayhi');
         if (el) {
             const timeNow = new Date();
             const hours = timeNow.getHours();
-            const lang = GLOBAL_CONFIG.lang.sayhello;
+            const lang = GLOBAL_CONFIG.aside.sayhello;
             const greetings = [
-                { start: 0, end: 5, text: lang.goodnight },
-                { start: 6, end: 10, text: lang.morning },
-                { start: 11, end: 14, text: lang.noon },
-                { start: 15, end: 18, text: lang.afternoon },
-                { start: 19, end: 24, text: lang.night },
+                {start: 0, end: 5, text: lang.goodnight},
+                {start: 6, end: 10, text: lang.morning},
+                {start: 11, end: 14, text: lang.noon},
+                {start: 15, end: 18, text: lang.afternoon},
+                {start: 19, end: 24, text: lang.night},
             ];
             for (let greeting of greetings) {
                 if (hours >= greeting.start && hours <= greeting.end) {
@@ -652,9 +483,6 @@ let sco = {
             }
         }
     },
-    /**
-     * tagPageActive
-     */
     tagPageActive: function () {
         const currentPath = window.location.pathname;
         const decodedPath = decodeURIComponent(currentPath);
@@ -677,9 +505,6 @@ let sco = {
             }
         }
     },
-    /**
-     * categoryBarActive
-     */
     categoriesBarActive: function () {
         const categoryBar = document.querySelector("#category-bar");
         const currentPath = window.location.pathname;
@@ -709,9 +534,6 @@ let sco = {
             }
         }
     },
-    /**
-     * categoryBarRightButton
-     */
     scrollCategoryBarToRight: function () {
         let timeoutId;
         let scrollBar = document.getElementById("category-bar-items");
@@ -742,9 +564,6 @@ let sco = {
             });
         }
     },
-    /**
-     * 打开侧边栏标签隐藏
-     */
     openAllTags: function () {
         let tagCloudElements = document.querySelectorAll(".card-allinfo .card-tag-cloud");
         tagCloudElements.forEach(function (tagCloudElement) {
@@ -755,9 +574,6 @@ let sco = {
             moreTagsButton.parentNode.removeChild(moreTagsButton);
         }
     },
-    /**
-     * 监听底部分页输入框
-     */
     listenToPageInputPress: function () {
         const pageText = document.getElementById("toPageText");
         const pageButton = document.getElementById("toPageButton");
@@ -794,9 +610,6 @@ let sco = {
             }
         });
     },
-    /**
-     * 初始化Nav背景
-     */
     addNavBackgroundInit: function () {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
         if (scrollTop !== 0) {
@@ -810,10 +623,6 @@ let sco = {
             }
         }
     },
-    /**
-     * 初始化Header
-     * @param change
-     */
     initAdjust: function (change = false) {
         const $blogName = document.getElementById('site-name')
         let blogNameWidth = $blogName && $blogName.offsetWidth
@@ -839,9 +648,6 @@ let sco = {
 
         document.getElementById('nav')?.classList.add('show')
     },
-    /**
-     * 首页分页跳转
-     */
     toPage: function () {
         const pageNumbers = document.querySelectorAll(".page-number");
         const maxPageNumber = parseInt(pageNumbers[pageNumbers.length - 1].innerHTML);
@@ -879,12 +685,9 @@ let sco = {
             element.value = "donotreply@examp.com";
             element.dispatchEvent(new Event("input"));
         });
-    }
+    },
 }
 
-/*
- * 代码高亮显示
- */
 class hightlight {
     static createEle(langEl, item) {
         const fragment = document.createDocumentFragment()
@@ -908,11 +711,10 @@ class hightlight {
                 if ($expand.length !== 0) {
                     $expand[0].setAttribute('style', 'display:block')
                 }
-                if (itemHeight < 200) {
-                    $table.setAttribute('style', 'height: auto')
+                if (GLOBAL_CONFIG.hightlight.limit && itemHeight > GLOBAL_CONFIG.hightlight.limit) {
+                    $table.setAttribute('style', `height: ${GLOBAL_CONFIG.hightlight.limit}px`)
                 } else {
-                    $table.setAttribute('style', 'height:200px')
-                    ele.classList.remove("expand-done")
+                    $table.setAttribute('style', `height: auto`)
                 }
             }
             expand = !expand
@@ -924,10 +726,10 @@ class hightlight {
         fragment.appendChild(hlTools)
         const itemHeight = item.clientHeight, $table = item.querySelector('table'),
             $expand = item.getElementsByClassName('code-expand-btn')
-        if (GLOBAL_CONFIG.hightlight.limit && itemHeight > GLOBAL_CONFIG.hightlight.limit + 30) {
+        if (GLOBAL_CONFIG.hightlight.limit && itemHeight > GLOBAL_CONFIG.hightlight.limit) {
             $table.setAttribute('style', `height: ${GLOBAL_CONFIG.hightlight.limit}px`)
             ele.className = 'code-expand-btn'
-            ele.innerHTML = '<i class="scoicon sco-show-line" style="font-size: 1.2rem"></i>'
+            ele.innerHTML = '<i class="scoicon sco-show-line"></i>'
             ele.addEventListener('click', (e) => {
                 $table.setAttribute('style', `height: ${itemHeight}px`)
                 e.target.classList.add('expand-done')
@@ -936,7 +738,13 @@ class hightlight {
             fragment.appendChild(ele)
         }
         item.insertBefore(fragment, item.firstChild)
-        hlTools.children[0].click()
+        if (!expand) {
+            hlTools.children[0].classList.add('closed')
+            $table.setAttribute('style', 'display:none')
+            if ($expand.length !== 0) {
+                $expand[0].setAttribute('style', 'display:none')
+            }
+        }
     }
 
     static init() {
@@ -1002,17 +810,15 @@ window.refreshFn = () => {
     sco.listenToPageInputPress()
     sco.addNavBackgroundInit()
     GLOBAL_CONFIG.rightside.enable && addRightMenuClickEvent()
-    GLOBAL_CONFIG.lazyload.enable && sco.lazyloadImg()
-    GLOBAL_CONFIG.lightbox && sco.lightbox('')
+    GLOBAL_CONFIG.lazyload.enable && utils.lazyloadImg()
+    GLOBAL_CONFIG.lightbox && utils.lightbox(document.querySelectorAll("#article-container img:not(.flink-avatar)"))
     GLOBAL_CONFIG.randomlinks && randomLinksList()
     PAGE_CONFIG.comment && initComment()
     PAGE_CONFIG.toc && toc.init();
     (PAGE_CONFIG.is_post || PAGE_CONFIG.is_page) && ((GLOBAL_CONFIG.hightlight.enable && hightlight.init()) || tabs.init())
-    PAGE_CONFIG.is_home && (showTodayCard() || sco.initbbtalk())
+    PAGE_CONFIG.is_home && showTodayCard()
     GLOBAL_CONFIG.covercolor.enable && coverColor()
     sco.initConsoleState()
-    document.getElementById('history-baidu') && sco.card_history()
-    document.getElementById('welcome-info') && sco.card_welcome()
     GLOBAL_CONFIG.comment.commentBarrage && PAGE_CONFIG.comment && initializeCommentBarrage()
     document.body.setAttribute('data-type', PAGE_CONFIG.page)
     PAGE_CONFIG.page === "music" && scoMusic.init()
@@ -1025,5 +831,6 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 window.onkeydown = function (e) {
-    123 === e.keyCode && utils.snackbarShow("开发者模式已打开，请遵循GPL协议", !1, 3e3)
+    (123 === e.keyCode || (17 === e.ctrlKey && 16 === e.shiftKey && 67 === e.keyCode)) && utils.snackbarShow("开发者模式已打开，请遵循GPL协议", !1, 3e3);
+    (27 === e.keyCode) && sco.hideConsole();
 }
