@@ -1,1 +1,228 @@
-const utils={debounce:function(t,e,n){let o;return function(){const a=this,i=arguments,s=n&&!o;clearTimeout(o),o=setTimeout((function(){o=null,n||t.apply(a,i)}),e),s&&t.apply(a,i)}},throttle:function(t,e,n){let o,a,i,s=0;n||(n={});const l=function(){s=!1===n.leading?0:(new Date).getTime(),t.apply(a,i),a=i=null};return function(){const r=(new Date).getTime();s||!1!==n.leading||(s=r);const d=e-(r-s);a=this,i=arguments,d<=0||d>e?(o&&(clearTimeout(o),o=null),s=r,t.apply(a,i),o||(a=i=null)):o||!1===n.trailing||(o=setTimeout(l,d))}},fadeIn:(t,e)=>{t.style.cssText=`display:block;animation: to_show ${e}s`},fadeOut:(t,e)=>{t.addEventListener("animationend",(function e(){t.style.cssText="display: none; animation: '' ",t.removeEventListener("animationend",e)})),t.style.animation=`to_hide ${e}s`},sidebarPaddingR:()=>{const t=window.innerWidth,e=document.body.clientWidth,n=t-e;t!==e&&(document.body.style.paddingRight=n+"px")},snackbarShow:(t,e,n)=>{const o=void 0!==e&&e,a=void 0!==n?n:5e3;document.styleSheets[0].addRule(":root","--sco-snackbar-time:"+a+"ms!important"),Snackbar.show({text:t,showAction:o,duration:a,pos:"top-center"})},copy:async t=>{try{await navigator.clipboard.writeText(t),utils.snackbarShow(GLOBAL_CONFIG.lang.copy.success,!1,2e3)}catch(t){utils.snackbarShow(GLOBAL_CONFIG.lang.copy.error,!1,2e3)}},getEleTop:t=>{let e=0;for(;t;)e+=t.offsetTop,t=t.offsetParent;return e},randomNum:t=>Math.floor(Math.random()*t),timeDiff:(t,e)=>{const n=e.getTime()-t.getTime();return Math.floor(n/864e5)},scrollToDest:(t,e=500)=>{const n=window.pageYOffset,o=document.getElementById("page-header").classList.contains("nav-fixed");if((n>t||o)&&(t-=70),"scrollBehavior"in document.documentElement.style)return void window.scrollTo({top:t,behavior:"smooth"});let a=null;const i=t-n;window.requestAnimationFrame((function o(s){a=a||s;const l=s-a;l<e?(window.scrollTo(0,n+i*l/e),window.requestAnimationFrame(o)):window.scrollTo(0,t)}))},siblings:(t,e)=>[...t.parentNode.children].filter((n=>e?n!==t&&n.matches(e):n!==t)),isMobile:()=>/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),isHidden:t=>0===t.offsetHeight&&0===t.offsetWidth,addEventListenerPjax:function(t,e,n,o=!1){null!=t&&(t.addEventListener(e,n,o),utils.addGlobalFn("pjax",(function(){t.removeEventListener(e,n,o)})))},addGlobalFn:(t,e,n=!1,o=window)=>{const a=o.globalFn||{},i=a[t]||{};n&&i[n]||(i[n=n||Object.keys(i).length]=e,a[t]=i,o.globalFn=a)},animateIn:(t,e)=>{t.style.display="block",t.style.animation=e},animateOut:(t,e)=>{t.addEventListener("animationend",(function e(){t.style.display="",t.style.animation="",t.removeEventListener("animationend",e)})),t.style.animation=e},wrap:(t,e,n)=>{const o=document.createElement(e);for(const[t,e]of Object.entries(n))o.setAttribute(t,e);t.parentNode.insertBefore(o,t),o.appendChild(t)},lazyloadImg:function(){window.lazyLoadInstance=new LazyLoad({elements_selector:"img",threshold:0,data_src:"lazy-src",callback_error:t=>{t.setAttribute("src",GLOBAL_CONFIG.lazyload.error)}})},lightbox:function(t){const e=GLOBAL_CONFIG.lightbox;"mediumZoom"===e&&mediumZoom&&mediumZoom(t,{background:"var(--sco-card-bg)"}),"fancybox"===e&&(t.forEach((t=>{if("A"!==t.parentNode.tagName){const e=t.dataset.lazySrc||t.src,n=t.title||t.alt||"";utils.wrap(t,"a",{class:"fancybox",href:e,"data-fancybox":"gallery","data-caption":n,"data-thumb":e})}})),window.fancyboxRun||(Fancybox.bind("[data-fancybox]",{Hash:!1,Thumbs:{showOnStart:!1},Images:{Panzoom:{maxScale:4}},Carousel:{transition:"slide"},Toolbar:{display:{left:["infobar"],middle:["zoomIn","zoomOut","toggle1to1","rotateCCW","rotateCW","flipX","flipY"],right:["slideshow","thumbs","close"]}}}),window.fancyboxRun=!0))}};
+const utils = {
+    debounce: function (func, wait, immediate) {
+        let timeout
+        return function () {
+            const context = this
+            const args = arguments
+            const later = function () {
+                timeout = null
+                if (!immediate) func.apply(context, args)
+            }
+            const callNow = immediate && !timeout
+            clearTimeout(timeout)
+            timeout = setTimeout(later, wait)
+            if (callNow) func.apply(context, args)
+        }
+    },
+
+    throttle: function (func, wait, options) {
+        let timeout, context, args
+        let previous = 0
+        if (!options) options = {}
+
+        const later = function () {
+            previous = options.leading === false ? 0 : new Date().getTime()
+            func.apply(context, args)
+            context = args = null
+        }
+
+        return function () {
+            const now = new Date().getTime()
+            if (!previous && options.leading === false) previous = now
+            const remaining = wait - (now - previous)
+            context = this
+            args = arguments
+            if (remaining <= 0 || remaining > wait) {
+                if (timeout) {
+                    clearTimeout(timeout)
+                    timeout = null
+                }
+                previous = now
+                func.apply(context, args)
+                if (!timeout) context = args = null
+            } else if (!timeout && options.trailing !== false) {
+                timeout = setTimeout(later, remaining)
+            }
+        }
+    },
+
+    fadeIn: (ele, time) => {
+        ele.style.cssText = `display:block;animation: to_show ${time}s`
+    },
+
+    fadeOut: (ele, time) => {
+        ele.addEventListener('animationend', function f() {
+            ele.style.cssText = "display: none; animation: '' "
+            ele.removeEventListener('animationend', f)
+        })
+        ele.style.animation = `to_hide ${time}s`
+    },
+
+    sidebarPaddingR: () => {
+        const innerWidth = window.innerWidth
+        const clientWidth = document.body.clientWidth
+        const paddingRight = innerWidth - clientWidth
+        if (innerWidth !== clientWidth) {
+            document.body.style.paddingRight = paddingRight + 'px'
+        }
+    },
+
+    snackbarShow: (text, showAction, duration) => {
+        const sa = (typeof showAction !== 'undefined') ? showAction : false
+        const dur = (typeof duration !== 'undefined') ? duration : 5000
+        document.styleSheets[0].addRule(':root', '--sco-snackbar-time:' + dur + 'ms!important')
+        Snackbar.show({
+            text: text, showAction: sa, duration: dur, pos: 'top-center'
+        })
+    },
+
+    copy: async (text) => {
+        try {
+            await navigator.clipboard.writeText(text)
+            utils.snackbarShow(GLOBAL_CONFIG.lang.copy.success, false, 2000)
+        } catch (err) {
+            utils.snackbarShow(GLOBAL_CONFIG.lang.copy.error, false, 2000)
+        }
+    },
+
+    getEleTop: ele => {
+        let actualTop = 0
+        while (ele) {
+            actualTop += ele.offsetTop
+            ele = ele.offsetParent
+        }
+        return actualTop
+    },
+
+    randomNum: (length) => {
+        return Math.floor(Math.random() * length)
+    },
+
+    timeDiff: (timeObj, today) => {
+        const timeDiff = today.getTime() - timeObj.getTime();
+        return Math.floor(timeDiff / (1000 * 3600 * 24));
+    },
+
+    scrollToDest: (pos, time = 500) => {
+        const currentPos = window.pageYOffset
+        const isNavFixed = document.getElementById('page-header').classList.contains('nav-fixed')
+        if (currentPos > pos || isNavFixed) pos = pos - 70
+        if ('scrollBehavior' in document.documentElement.style) {
+            window.scrollTo({
+                top: pos, behavior: 'smooth'
+            })
+            return
+        }
+        let start = null
+        const distance = pos - currentPos
+        window.requestAnimationFrame(function step(currentTime) {
+            start = !start ? currentTime : start
+            const progress = currentTime - start
+            if (progress < time) {
+                window.scrollTo(0, currentPos + distance * progress / time)
+                window.requestAnimationFrame(step)
+            } else {
+                window.scrollTo(0, pos)
+            }
+        })
+    },
+    siblings: (ele, selector) => {
+        return [...ele.parentNode.children].filter((child) => {
+            if (selector) {
+                return child !== ele && child.matches(selector)
+            }
+            return child !== ele
+        })
+    },
+    isMobile: () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+    isHidden: e => 0 === e.offsetHeight && 0 === e.offsetWidth,
+    addEventListenerPjax: function (element, eventType, callback, useCapture = false) {
+        if (element == null) return
+        element.addEventListener(eventType, callback, useCapture);
+        utils.addGlobalFn("pjax", function () {
+            element.removeEventListener(eventType, callback, useCapture);
+        });
+    },
+    addGlobalFn: (key, fn, name = false, parent = window) => {
+        const globalFn = parent.globalFn || {}
+        const keyObj = globalFn[key] || {}
+
+        if (name && keyObj[name]) return
+
+        name = name || Object.keys(keyObj).length
+        keyObj[name] = fn
+        globalFn[key] = keyObj
+        parent.globalFn = globalFn
+    },
+    animateIn: (ele, text) => {
+        ele.style.display = 'block'
+        ele.style.animation = text
+    },
+    animateOut: (ele, text) => {
+        ele.addEventListener('animationend', function f() {
+            ele.style.display = ''
+            ele.style.animation = ''
+            ele.removeEventListener('animationend', f)
+        })
+        ele.style.animation = text
+    },
+    wrap: (selector, eleType, options) => {
+        const createEle = document.createElement(eleType)
+        for (const [key, value] of Object.entries(options)) {
+            createEle.setAttribute(key, value)
+        }
+        selector.parentNode.insertBefore(createEle, selector)
+        createEle.appendChild(selector)
+    },
+    lazyloadImg: function () {
+        window.lazyLoadInstance = new LazyLoad({
+            elements_selector: 'img', threshold: 0, data_src: 'lazy-src', callback_error: (img) => {
+                img.setAttribute("src", GLOBAL_CONFIG.lazyload.error);
+            }
+        })
+    },
+    lightbox: function (selector) {
+        const lightbox = GLOBAL_CONFIG.lightbox
+
+        if (lightbox === 'mediumZoom' && mediumZoom) {
+            mediumZoom(selector, {background: "var(--sco-card-bg)"});
+        }
+
+        if (lightbox === 'fancybox') {
+            selector.forEach(i => {
+                if (i.parentNode.tagName !== 'A') {
+                    const dataSrc = i.dataset.lazySrc || i.src
+                    const dataCaption = i.title || i.alt || ''
+                    utils.wrap(i, 'a', {
+                        class: 'fancybox',
+                        href: dataSrc,
+                        'data-fancybox': 'gallery',
+                        'data-caption': dataCaption,
+                        'data-thumb': dataSrc
+                    })
+                }
+            })
+
+            if (!window.fancyboxRun) {
+                Fancybox.bind('[data-fancybox]', {
+                    Hash: false, Thumbs: {
+                        showOnStart: false
+                    }, Images: {
+                        Panzoom: {
+                            maxScale: 4
+                        }
+                    }, Carousel: {
+                        transition: 'slide'
+                    }, Toolbar: {
+                        display: {
+                            left: ['infobar'],
+                            middle: ['zoomIn', 'zoomOut', 'toggle1to1', 'rotateCCW', 'rotateCW', 'flipX', 'flipY'],
+                            right: ['slideshow', 'thumbs', 'close']
+                        }
+                    }
+                })
+                window.fancyboxRun = true
+            }
+        }
+    }
+}

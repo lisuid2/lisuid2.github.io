@@ -1,1 +1,161 @@
-const coverColor=()=>{const e=document.getElementById("post-cover")?.src;e?localColor(e):(document.documentElement.style.setProperty("--sco-main","var(--sco-theme)"),document.documentElement.style.setProperty("--sco-main-op","var(--sco-theme-op)"),document.documentElement.style.setProperty("--sco-main-op-deep","var(--sco-theme-op-deep)"),document.documentElement.style.setProperty("--sco-main-none","var(--sco-theme-none)"),initThemeColor())},localColor=e=>{const t=new Image;t.crossOrigin="Anonymous",t.onload=function(){const e=document.createElement("canvas");e.width=t.width,e.height=t.height;const o=e.getContext("2d");o.drawImage(t,0,0);const n=o.getImageData(0,0,t.width,t.height).data,{r:r,g:c,b:l}=calculateRGB(n);let m=rgbToHex(r,c,l);"light"===getContrastYIQ(m)&&(m=LightenDarkenColor(m,-50)),setThemeColors(m,r,c,l)},t.onerror=function(){console.error("图片加载失败")},t.src=e};function calculateRGB(e){let t=0,o=0,n=0;for(let r=0;r<e.length;r+=20)t+=e[r],o+=e[r+1],n+=e[r+2];return t=Math.floor(t/(e.length/4/5)),o=Math.floor(o/(e.length/4/5)),n=Math.floor(n/(e.length/4/5)),{r:t,g:o,b:n}}function rgbToHex(e,t,o){return"#"+[e,t,o].map((e=>e.toString(16).padStart(2,"0"))).join("")}function LightenDarkenColor(e,t){let o=!1;"#"===e[0]&&(e=e.slice(1),o=!0);const n=parseInt(e,16),r=Math.min(255,Math.max(0,(n>>16)+t)),c=Math.min(255,Math.max(0,(n>>8&255)+t));return`${o?"#":""}${(Math.min(255,Math.max(0,(255&n)+t))|c<<8|r<<16).toString(16).padStart(6,"0")}`}function getContrastYIQ(e){let t=colorRgb(e).match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/),o=299*t[1]+587*t[2]+114*t[3];return o/=255e3,o>=.5?"light":"dark"}function colorRgb(e){if(!e||"string"!=typeof e)return e;const t=e.toLowerCase();let o="";if(t&&(/^#([0-9a-fA-f]{3})$/.test(t)||/^#([0-9a-fA-f]{6})$/.test(t))){o=4===t.length?t.replace(/^#(.)/g,"#$1$1"):t;const e=o.slice(1).match(/.{2}/g).map((e=>parseInt(e,16)));return`rgb(${e[0]}, ${e[1]}, ${e[2]})`}return t}function setThemeColors(e,t=null,o=null,n=null){if(e){if(document.documentElement.style.setProperty("--sco-main",e),document.documentElement.style.setProperty("--sco-main-op",e+"23"),document.documentElement.style.setProperty("--sco-main-op-deep",e+"dd"),document.documentElement.style.setProperty("--sco-main-none",e+"00"),t&&o&&n){if(Math.round((299*parseInt(t)+587*parseInt(o)+114*parseInt(n))/1e3)<125){let e=document.getElementsByClassName("card-content");for(let t=0;t<e.length;t++)e[t].style.setProperty("--sco-card-bg","var(--sco-white)");let t=document.getElementsByClassName("author-info__sayhi");for(let e=0;e<t.length;e++)t[e].style.setProperty("background","var(--sco-white-op)"),t[e].style.setProperty("color","var(--sco-white)")}}document.getElementById("coverdiv").classList.add("loaded"),initThemeColor()}else document.documentElement.style.setProperty("--sco-main","var(--sco-theme)"),document.documentElement.style.setProperty("--sco-main-op","var(--sco-theme-op)"),document.documentElement.style.setProperty("--sco-main-op-deep","var(--sco-theme-op-deep)"),document.documentElement.style.setProperty("--sco-main-none","var(--sco-theme-none)"),initThemeColor()}function initThemeColor(){let e;e=(window.scrollY||document.documentElement.scrollTop)>0?getComputedStyle(document.documentElement).getPropertyValue("--sco-card-bg"):PAGE_CONFIG.is_post?getComputedStyle(document.documentElement).getPropertyValue("--sco-main"):getComputedStyle(document.documentElement).getPropertyValue("--sco-background"),changeThemeColor(e)}function changeThemeColor(e){const t=document.querySelector('meta[name="theme-color"]');t&&t.setAttribute("content",e)}
+const coverColor = () => {
+    const path = document.getElementById("post-cover")?.src;
+    if (path) {
+        localColor(path);
+    } else {
+        document.documentElement.style.setProperty('--sco-main', 'var(--sco-theme)');
+        document.documentElement.style.setProperty('--sco-main-op', 'var(--sco-theme-op)');
+        document.documentElement.style.setProperty('--sco-main-op-deep', 'var(--sco-theme-op-deep)');
+        document.documentElement.style.setProperty('--sco-main-none', 'var(--sco-theme-none)');
+        initThemeColor()
+    }
+}
+
+const localColor = (path) => {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        const data = ctx.getImageData(0, 0, img.width, img.height).data;
+        const {r, g, b} = calculateRGB(data);
+        let value = rgbToHex(r, g, b);
+        if (getContrastYIQ(value) === "light") {
+            value = LightenDarkenColor(value, -50);
+        }
+        setThemeColors(value, r, g, b);
+    };
+    img.onerror = function () {
+        console.error('图片加载失败');
+    };
+    img.src = path;
+}
+
+function calculateRGB(data) {
+    let r = 0, g = 0, b = 0;
+    const step = 5;
+    for (let i = 0; i < data.length; i += 4 * step) {
+        r += data[i];
+        g += data[i + 1];
+        b += data[i + 2];
+    }
+    r = Math.floor(r / (data.length / 4 / step));
+    g = Math.floor(g / (data.length / 4 / step));
+    b = Math.floor(b / (data.length / 4 / step));
+    return {r, g, b};
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+function LightenDarkenColor(col, amt) {
+    let usePound = false;
+
+    if (col[0] === "#") {
+        col = col.slice(1);
+        usePound = true;
+    }
+
+    const num = parseInt(col, 16);
+    const r = Math.min(255, Math.max(0, (num >> 16) + amt));
+    const b = Math.min(255, Math.max(0, ((num >> 8) & 0xff) + amt));
+    const g = Math.min(255, Math.max(0, (num & 0xff) + amt));
+
+    return `${usePound ? "#" : ""}${(g | (b << 8) | (r << 16)).toString(16).padStart(6, "0")}`;
+}
+
+function getContrastYIQ(hexcolor) {
+    let colorrgb = colorRgb(hexcolor);
+    let colors = colorrgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    let red = colors[1];
+    let green = colors[2];
+    let blue = colors[3];
+    let brightness = (red * 299) + (green * 587) + (blue * 114);
+    brightness = brightness / 255000;
+    return brightness >= 0.5 ? "light" : "dark";
+}
+
+function colorRgb(str) {
+    const HEX_SHORT_REGEX = /^#([0-9a-fA-f]{3})$/;
+    const HEX_LONG_REGEX = /^#([0-9a-fA-f]{6})$/;
+    const HEX_SHORT_LENGTH = 4;
+
+    if (!str || typeof str !== 'string') {
+        return str;
+    }
+
+    const sColor = str.toLowerCase();
+    let hexValue = "";
+
+    if (sColor && (HEX_SHORT_REGEX.test(sColor) || HEX_LONG_REGEX.test(sColor))) {
+        hexValue = sColor.length === HEX_SHORT_LENGTH ?
+            sColor.replace(/^#(.)/g, "#$1$1") :
+            sColor;
+
+        const rgbValue = hexValue.slice(1)
+            .match(/.{2}/g)
+            .map(val => parseInt(val, 16));
+
+        return `rgb(${rgbValue[0]}, ${rgbValue[1]}, ${rgbValue[2]})`;
+    } else {
+        return sColor;
+    }
+}
+
+function setThemeColors(value, r = null, g = null, b = null) {
+    if (value) {
+        document.documentElement.style.setProperty('--sco-main', value);
+        document.documentElement.style.setProperty('--sco-main-op', value + '23');
+        document.documentElement.style.setProperty('--sco-main-op-deep', value + 'dd');
+        document.documentElement.style.setProperty('--sco-main-none', value + '00');
+
+        if (r && g && b) {
+            let brightness = Math.round(((parseInt(r) * 299) + (parseInt(g) * 587) + (parseInt(b) * 114)) / 1000);
+            if (brightness < 125) {
+                let cardContents = document.getElementsByClassName('card-content');
+                for (let i = 0; i < cardContents.length; i++) {
+                    cardContents[i].style.setProperty('--sco-card-bg', 'var(--sco-white)');
+                }
+
+                let authorInfo = document.getElementsByClassName('author-info__sayhi');
+                for (let i = 0; i < authorInfo.length; i++) {
+                    authorInfo[i].style.setProperty('background', 'var(--sco-white-op)');
+                    authorInfo[i].style.setProperty('color', 'var(--sco-white)');
+                }
+            }
+        }
+
+        document.getElementById("coverdiv").classList.add("loaded");
+        initThemeColor();
+    } else {
+        document.documentElement.style.setProperty('--sco-main', 'var(--sco-theme)');
+        document.documentElement.style.setProperty('--sco-main-op', 'var(--sco-theme-op)');
+        document.documentElement.style.setProperty('--sco-main-op-deep', 'var(--sco-theme-op-deep)');
+        document.documentElement.style.setProperty('--sco-main-none', 'var(--sco-theme-none)');
+        initThemeColor();
+    }
+}
+
+function initThemeColor() {
+    const currentTop = window.scrollY || document.documentElement.scrollTop;
+    let themeColor;
+    if (currentTop > 0) {
+        themeColor = getComputedStyle(document.documentElement).getPropertyValue('--sco-card-bg');
+    } else if (PAGE_CONFIG.is_post) {
+        themeColor = getComputedStyle(document.documentElement).getPropertyValue('--sco-main');
+    } else {
+        themeColor = getComputedStyle(document.documentElement).getPropertyValue('--sco-background');
+    }
+    changeThemeColor(themeColor);
+}
+
+function changeThemeColor(color) {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+        meta.setAttribute('content', color);
+    }
+}
