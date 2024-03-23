@@ -2,7 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.lisui.top/posts/83fe067a.html</loc>
+    
+    <lastmod>2024-03-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.lisui.top/posts/348c00e5.html</loc>
+    
+    <lastmod>2024-03-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.lisui.top/posts/78a7974c.html</loc>
     
     <lastmod>2024-03-23</lastmod>
     
@@ -129,15 +147,6 @@
   
   <url>
     <loc>https://blog.lisui.top/posts/5abaf631.html</loc>
-    
-    <lastmod>2023-12-16</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.lisui.top/posts/78a7974c.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
@@ -275,6 +284,13 @@
   </url>
   
   <url>
+    <loc>https://blog.lisui.top/categories/Hexo/</loc>
+    <lastmod>2024-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.lisui.top/categories/chatgpt/</loc>
     <lastmod>2024-03-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -296,14 +312,14 @@
   </url>
   
   <url>
-    <loc>https://blog.lisui.top/categories/AI/</loc>
+    <loc>https://blog.lisui.top/categories/%E6%95%99%E7%A8%8B/%E9%9B%B7%E6%B1%A0/</loc>
     <lastmod>2024-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.lisui.top/categories/%E6%95%99%E7%A8%8B/%E9%9B%B7%E6%B1%A0/</loc>
+    <loc>https://blog.lisui.top/categories/AI/</loc>
     <lastmod>2024-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
