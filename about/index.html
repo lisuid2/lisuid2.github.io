@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>关于本站 | 理随</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/img/pwa/favicon.ico"><!-- index.css--><link rel="stylesheet" href="/css/index.css?v=1.12.0"><!-- inject head--><link rel="stylesheet" href="https://cdn2.codesign.qq.com/icons/7pOrz0WXB5ZWJPX/latest/iconfont.css"><!-- aplayer--><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="关于本站"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="理随"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/img/pwa/favicon.ico"><link rel="apple-touch-icon" href="/img/pwa/favicon.ico" sizes="180x180"><script>console.log(
+    "%c Program: Hexo %c Theme: Solitude %c Version: v1.12.0",
+    "border-radius:5px 0 0 5px;padding: 5px 10px;color:white;background:#ff3842;",
+    "padding: 5px 10px;color:white;background:#3e9f50;",
+    "padding: 5px 10px;color:white;background:#0084ff;border-radius:0 5px 5px 0",
+)
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+    
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+    
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+    
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+    
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+        
+                if (name && keyObj[name]) return
+        
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+        }
+    })()</script><!-- global head--><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2023-04-20 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: {"limit":50,"author":"作者: 理随","link":"链接: ","source":"来源: 理随","info":"著作权归作者所有。 商业转载请联系作者获得授权，非商业转载请注明出处。"},
+    highlight: {
+        enable: true,
+        limit: 200,
+        expand: true,
+        copy: true,
+        syntax: 'highlight.js'
+    },
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可"},
+    aside: {
+        sayhello: {
+            morning: '一日之计在于晨',
+            noon: '吃饱了才有力气干活',
+            afternoon: '集中精力，攻克难关',
+            night: '不要太劳累了，早睡更健康',
+            goodnight: '睡个好觉，保证精力充沛',
+        },
+        sayhello2: [],
+        sayhello3: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: false,
+    lightbox: 'null',
+    post_ai: false,
+    right_menu: false,
+};</script><!-- page-config head--><script id="config-diff">var PAGE_CONFIG = {
+    is_post: false,
+    is_page: true,
+    is_home: false,
+    page: 'about',
+    toc: false,
+    comment: false,
+    ai_text: false
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body id="body" data-type="about"><!-- universe--><canvas id="universe"></canvas><!-- loading--><!-- console--><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude st-close-fill"></i></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude st-moon-clear-fill"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude st-side-bar-fill"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><!-- sidebar--><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude st-moon-clear-fill"></i><span>显示模式</span></span></div><span class="sidebar-menu-item-title">标签</span><div class="card-widget card-tags card-archives card-webinfo card-allinfo"><div class="card-tag-cloud"><a href="/tags/Hexo/">Hexo<sup>2</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>5</sup></a><a href="/tags/Butterfly/">Butterfly<sup>1</sup></a><a href="/tags/CDN/">CDN<sup>1</sup></a><a href="/tags/Apple/">Apple<sup>1</sup></a><a href="/tags/%E8%8B%B9%E6%9E%9C/">苹果<sup>1</sup></a><a href="/tags/chatgpt/">chatgpt<sup>2</sup></a><a href="/tags/%E9%9B%B7%E6%B1%A0/">雷池<sup>1</sup></a><a href="/tags/%E7%9F%A5%E8%AF%86/">知识<sup>2</sup></a></div></div></div></div><!-- keyboard--><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><a id="site-name" href="/" title="返回博客主页"><span class="title">Solitude</span></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">关于本站</a></div></div><div id="menus"></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude st-arrow-up-line"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude st-menu-line"></i></a></div></div></div></nav></header><main class="layout hide-aside" id="content-inner"><div id="page"><div id="about-page"><div class="author-info"><div class="author-tag-left"><span class="author-tag">🤖️ 数码科技爱好者</span><span class="author-tag">🔍 分享与热心帮助</span><span class="author-tag">🏠 智能家居小能手</span></div><div class="author-img"><img src="https://s3.qjqq.cn/3/64de148060f7b.webp!color"></div><div class="author-tag-right"><span class="author-tag">脚踏实地行动派 🏃</span><span class="author-tag">团队小组发动机 🧱</span><span class="author-tag">壮汉人狠话不多 💢</span></div></div><div class="author-title">关于本站</div><div class="author-content"><div class="author-content-item myInfoAndSayHello"><div class="title1">你好，很高兴认识你👋</div><div class="title2"><span class="inline-word">我叫理随</span></div><div class="title1">是一名学生</div></div><div class="aboutsiteTips author-content-item"><div class="author-content-item-tips">追求</div><h2><span class="inline-word">生而无畏<br>战至终章</span><div class="mask"><span class="first-tips" data-show="">优秀的产品</span><span>出色的设计</span><span>高效的编程</span><span data-up="">人性化的用户体验</span></div></h2></div></div><script>var pursuitInterval = null;
+pursuitInterval = setInterval(function () {
+    const show = document.querySelector('span[data-show]')
+    const next = show.nextElementSibling || document.querySelector('.first-tips')
+    const up = document.querySelector('span[data-up]')
+    if (up) {
+        up.removeAttribute('data-up')
+    }
+    show.removeAttribute('data-show')
+    show.setAttribute('data-up', '')
+    next.setAttribute('data-show', '')
+}, 2000)
+
+document.addEventListener('pjax:send', function () {
+    clearInterval(pursuitInterval);
+});</script><div class="author-content"><div class="author-content-item skills"><div class="card-content"><div class="author-content-item-tips">技能</div><span class="author-content-item-title">开启创造力</span><div class="skills-style-group"><div class="tags-group-all"><div class="tags-group-wrapper"><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#fff"><img src="https://bu.dusays.com/2023/04/09/643293b1184e9.jpg" title="Java"></div><div class="tags-group-icon" style="background:#57b6e6"><img src="https://bu.dusays.com/2023/04/09/643293b0f0abe.png" title="Docker"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#4082c3"><img src="https://bu.dusays.com/2022/12/15/639aa3a5c240e.png" title="Photoshop"></div><div class="tags-group-icon" style="background:#333"><img src="https://npm.elemecdn.com/anzhiyu-blog@2.1.1/img/svg/node-logo.svg" title="Node"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#2e3a41"><img src="https://bu.dusays.com/2023/04/09/643293b68026c.png" title="Webpack"></div><div class="tags-group-icon" style="background:#fff"><img src="https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/pinia-logo.svg" title="Pinia"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#fff"><img src="https://bu.dusays.com/2023/04/09/643293b1230f7.png" title="Python"></div><div class="tags-group-icon" style="background:#937df7"><img src="https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/vite-logo.svg" title="Vite"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#4499e4"><img src="https://bu.dusays.com/2023/04/09/643293b1055c2.png" title="Flutter"></div><div class="tags-group-icon" style="background:#b8f0ae"><img src="https://bu.dusays.com/2023/04/09/643293b6788bd.png" title="Vue"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#222"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" title="React"></div><div class="tags-group-icon" style="background:#2c51db"><img src="https://bu.dusays.com/2022/12/15/639aa3a5c251e.png" title="CSS3"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#f7cb4f"><img src="https://bu.dusays.com/2023/04/09/643293b121f02.png" title="JS"></div><div class="tags-group-icon" style="background:#e9572b"><img src="https://bu.dusays.com/2022/12/15/639aa3a5c241c.png" title="HTML"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#df5b40"><img src="https://bu.dusays.com/2023/04/09/643293b10ccdd.webp" title="Git"></div><div class="tags-group-icon" style="background:#e65164"><img src="https://bu.dusays.com/2022/11/19/6378d6458c6b6.png" title="Apifox"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#fff"><img src="https://bu.dusays.com/2023/04/09/643293b1184e9.jpg" title="Java"></div><div class="tags-group-icon" style="background:#57b6e6"><img src="https://bu.dusays.com/2023/04/09/643293b0f0abe.png" title="Docker"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#4082c3"><img src="https://bu.dusays.com/2022/12/15/639aa3a5c240e.png" title="Photoshop"></div><div class="tags-group-icon" style="background:#333"><img src="https://npm.elemecdn.com/anzhiyu-blog@2.1.1/img/svg/node-logo.svg" title="Node"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#2e3a41"><img src="https://bu.dusays.com/2023/04/09/643293b68026c.png" title="Webpack"></div><div class="tags-group-icon" style="background:#fff"><img src="https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/pinia-logo.svg" title="Pinia"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#fff"><img src="https://bu.dusays.com/2023/04/09/643293b1230f7.png" title="Python"></div><div class="tags-group-icon" style="background:#937df7"><img src="https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/vite-logo.svg" title="Vite"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#4499e4"><img src="https://bu.dusays.com/2023/04/09/643293b1055c2.png" title="Flutter"></div><div class="tags-group-icon" style="background:#b8f0ae"><img src="https://bu.dusays.com/2023/04/09/643293b6788bd.png" title="Vue"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#222"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" title="React"></div><div class="tags-group-icon" style="background:#2c51db"><img src="https://bu.dusays.com/2022/12/15/639aa3a5c251e.png" title="CSS3"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#f7cb4f"><img src="https://bu.dusays.com/2023/04/09/643293b121f02.png" title="JS"></div><div class="tags-group-icon" style="background:#e9572b"><img src="https://bu.dusays.com/2022/12/15/639aa3a5c241c.png" title="HTML"></div></div><div class="tags-group-icon-pair"><div class="tags-group-icon" style="background:#df5b40"><img src="https://bu.dusays.com/2023/04/09/643293b10ccdd.webp" title="Git"></div><div class="tags-group-icon" style="background:#e65164"><img src="https://bu.dusays.com/2022/11/19/6378d6458c6b6.png" title="Apifox"></div></div></div></div><div class="skills-list"><div class="skill-info"><div class="skill-icon" style="background:#fff"><img src="https://bu.dusays.com/2023/04/09/643293b1184e9.jpg" title="Java"></div><div class="skill-name"><span>Java</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#57b6e6"><img src="https://bu.dusays.com/2023/04/09/643293b0f0abe.png" title="Docker"></div><div class="skill-name"><span>Docker</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#4082c3"><img src="https://bu.dusays.com/2022/12/15/639aa3a5c240e.png" title="Photoshop"></div><div class="skill-name"><span>Photoshop</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#333"><img src="https://npm.elemecdn.com/anzhiyu-blog@2.1.1/img/svg/node-logo.svg" title="Node"></div><div class="skill-name"><span>Node</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#2e3a41"><img src="https://bu.dusays.com/2023/04/09/643293b68026c.png" title="Webpack"></div><div class="skill-name"><span>Webpack</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#fff"><img src="https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/pinia-logo.svg" title="Pinia"></div><div class="skill-name"><span>Pinia</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#fff"><img src="https://bu.dusays.com/2023/04/09/643293b1230f7.png" title="Python"></div><div class="skill-name"><span>Python</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#937df7"><img src="https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/vite-logo.svg" title="Vite"></div><div class="skill-name"><span>Vite</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#4499e4"><img src="https://bu.dusays.com/2023/04/09/643293b1055c2.png" title="Flutter"></div><div class="skill-name"><span>Flutter</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#b8f0ae"><img src="https://bu.dusays.com/2023/04/09/643293b6788bd.png" title="Vue"></div><div class="skill-name"><span>Vue</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#222"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" title="React"></div><div class="skill-name"><span>React</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#2c51db"><img src="https://bu.dusays.com/2022/12/15/639aa3a5c251e.png" title="CSS3"></div><div class="skill-name"><span>CSS3</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#f7cb4f"><img src="https://bu.dusays.com/2023/04/09/643293b121f02.png" title="JS"></div><div class="skill-name"><span>JS</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#e9572b"><img src="https://bu.dusays.com/2022/12/15/639aa3a5c241c.png" title="HTML"></div><div class="skill-name"><span>HTML</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#df5b40"><img src="https://bu.dusays.com/2023/04/09/643293b10ccdd.webp" title="Git"></div><div class="skill-name"><span>Git</span></div></div><div class="skill-info"><div class="skill-icon" style="background:#e65164"><img src="https://bu.dusays.com/2022/11/19/6378d6458c6b6.png" title="Apifox"></div><div class="skill-name"><span>Apifox</span></div></div><div class="etc">...</div></div></div></div></div><div class="author-content-item careers"><div class="card-content"><div class="author-content-item-tips">生涯</div><span class="author-content-item-title">无限进步</span><div class="careers-group"><div class="careers-item"><div class="circle" style="background:#357ef5"></div><div class="name">软件工程, 学习</div></div></div><img class="author-content-img" src="https://bu.dusays.com/2023/04/21/644287166329b.png" alt="生涯"></div></div></div><div class="author-content"><div class="author-content-item personalities"><div class="author-content-item-tips">性格</div><span class="author-content-item-title">主角</span><div class="title2" style="color:#56a178">ENFJ-T</div><div class="image"><img class="nolazyload" src="https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/ESFJ-A.svg"></div><div class="post-tips">在 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.16personalities.com/">16personalities </a>了解更多关于 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.16personalities.com/ch/infp-人格">执政官</a></div></div><div class="author-content-item myphoto"><img class="author-content-img" src="https://bu.dusays.com/2023/10/31/6540d809e3dcd.png" alt="my photo"></div></div><div class="author-content"><div class="author-content-item maxim"><div class="author-content-item-tips">座右铭</div><span class="maxim-title"><span>生而无畏，</span><span>战至终章。</span></span></div><div class="author-content-item buff"><div class="card-content"><div class="author-content-item-tips">特长</div><span class="buff-title"><span>辅助<span class="inline-word">专家</span></span><span>学习能力<span class="inline-word">MAX</span></span></span></div></div></div><div class="author-content"><div class="author-content-item game-apex" style="background: url(https://bu.dusays.com/2023/12/28/658d0d9ca8816.png) no-repeat top; background-size: cover;"><div class="card-content"><div class="author-content-item-tips">爱好游戏</div><span class="author-content-item-title">APEX LEGENDS</span><div class="content-bottom"><div class="tips">C位</div><div class="tips">ID Wleelw</div></div></div></div></div><div class="author-content"><div class="author-content-item like-technology" style="background: url(https://s3.qjqq.cn/3/65aa50f79eacd.webp!color) no-repeat center;"><div class="card-content"><div class="author-content-item-tips">关注偏好</div><span class="author-content-item-title">王者荣耀</span><div class="content-bottom"><div class="tips">理工男</div></div></div></div><div class="author-content-item like-music" style="background: url(https://s3.qjqq.cn/3/65aa513bb0b72.webp!color) no-repeat center;"><div class="card-content"><div class="author-content-item-tips">音乐偏好</div><span class="author-content-item-title">民谣、古典、轻音乐</span><div class="content-bottom"><div class="tips">跟 王卓Sco 一起欣赏更多音乐</div><div class="banner-button-group"><a class="banner-button" href="/music/"><i class="solitude st-right-btn-fill"></i><span class="banner-button-text">更多推荐</span></a></div></div></div></div></div><div class="author-content"><div class="about-statistic author-content-item" style="background: url(https://bu.dusays.com/2023/03/12/640dc8c72f623.webp);"><div class="card-content"><div class="author-content-item-tips">数据</div><span class="author-content-item-title">访问统计</span><div id="statistic"></div><div class="post-tips">统计信息来自</div></div></div><style>:root {
+    --site-about-oneself-map--light: url(https://p.wzsco.top/3b9047a67e59dcf85682d3c8e066a106.png/cover);
+    --site-about-oneself-map--dark: url(https://p.wzsco.top/f31ec672f8701d67d696cd3d18af0c79.webp/cover);
+}</style><div class="author-content-item-group column mapAndInfo"><div class="author-content-item map single"><span class="map-title">我现在住在中国，广东省</span></div><div class="author-content-item selfInfo single"><div><span class="selfInfo-title">生于</span><span class="selfInfo-content" style="color: #43a6c6;">2007</span></div><div><span class="selfInfo-title">xxxx</span><span class="selfInfo-content" style="color: #c69043;">xxxxx</span></div><div><span class="selfInfo-title">现在职业</span><span class="selfInfo-content" style="color: #b04fe6;">学生</span></div></div></div></div></div></div></main><footer id="footer"><div id="footer_deal"></div><div id="st-footer"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2023 - 2024 By&nbsp;<a class="footer-bar-link" href="/">理随</a></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/everfu/hexo-theme-solitude" alt="主题">主题</a><a class="footer-bar-link cc" href="/null" aria-label="copyright"><i class="solitude st-copyright-line"></i><i class="solitude st-creative-commons-by-line"></i><i class="solitude st-creative-commons-nc-line"></i><i class="solitude st-creative-commons-nd-line"></i></a></div></div></div></footer></div><!-- right_menu--><!-- inject body--><div><script src="/js/utils.js?v=1.12.0"></script><script src="/js/main.js?v=1.12.0"></script><script src="/js/third_party/waterfall.min.js?v=1.12.0"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pjax/0.2.8/pjax.min.js"></script><script src="/js/third_party/universe.min.js?v=1.12.0"></script><script>dark()
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js"></script><div class="js-pjax"></div></div><!-- pjax--><script>const pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: ['title','#body-wrap','#site-config','meta[name="description"]','.js-pjax','meta[property^="og:"]','#config-diff'],
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+})
+
+document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+})
+
+document.addEventListener('pjax:complete', () => {
+    window.refreshFn()
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+    if (e.request.status === 404) {
+        pjax.loadUrl('/404.html')
+    }
+})</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    is_rm && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><!-- google adsense--><!-- search--><!-- Tianli-Talk--><!-- music--></body></html><script>const posts=["posts/83fe067a.html","posts/348c00e5.html","posts/67e36e3e.html","posts/870b86a3.html","posts/efe4d5b4.html","posts/e29ba27e.html","posts/286470e0.html","posts/5abaf631.html","posts/381da2ef.html","posts/aa9c54d4.html","posts/af19e490.html"];function toRandomPost(){ pjax.loadUrl('/'+posts[Math.floor(Math.random()*posts.length)]); }</script>

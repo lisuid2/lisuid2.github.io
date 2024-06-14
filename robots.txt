@@ -1,0 +1,13 @@
+User-agent: msnbot-media
+Disallow: /
+Allow: /th?
+
+User-agent: Twitterbot
+Disallow:
+
+User-agent: *
+Disallow: /css/
+Disallow: /js/
+Disallow: /img/
+
+Sitemap: https://lisui.top/sitemap.xml

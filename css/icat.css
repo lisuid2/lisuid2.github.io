@@ -1,0 +1,57 @@
+#welcome-info {
+    overflow: hidden;
+    border-radius: 14px;
+    --icat-welcome-color: #49B1F5;
+  }
+  #welcome-info .welcome-time {
+    width: 100%;
+    margin: 12px 0 0;
+    display: inline-flex;
+  }
+  #welcome-info .welcome-message {
+    width: 100%;
+    margin-bottom: 8px;
+    display: inline-flex;
+  }
+  #welcome-info .welcome-region {
+    background: #f7f9fe;
+    border: 1px solid #e3e8f7;
+    color: #363636;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    margin: 6px 0;
+  }
+    
+    /* 欢迎信息栏样式 */
+  
+  
+  
+  .footer_custom_text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  
+  .swiper-wrapper{
+    flex-direction: column;
+  }
+  .history_slide {
+    text-align:left;
+    font-size: 14px;
+    display: flex;
+    flex-direction:column;
+    align-items: flex-start;
+  }
+  #history-baidu > .blog-slider__pagination{
+    display:none
+  }
+  .history_slide_time{
+    color: #858585;
+    Font-style: italic;
+    font-weight: lighter;
+  }
+  /* 去年今日样式 */
