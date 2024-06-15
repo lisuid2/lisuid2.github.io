@@ -153,28 +153,7 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/tags/Butterfly/</loc>
-    <lastmod>2024-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/tags/Hexo/</loc>
-    <lastmod>2024-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/tags/CDN/</loc>
-    <lastmod>2024-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/tags/Apple/</loc>
+    <loc>https://lisui.top/tags/%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -188,7 +167,28 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/tags/%E7%9F%A5%E8%AF%86/</loc>
+    <loc>https://lisui.top/tags/CDN/</loc>
+    <lastmod>2024-06-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lisui.top/tags/Hexo/</loc>
+    <lastmod>2024-06-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lisui.top/tags/Apple/</loc>
+    <lastmod>2024-06-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lisui.top/tags/Butterfly/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -211,7 +211,7 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/categories/%E6%95%99%E7%A8%8B/CDN/</loc>
+    <loc>https://lisui.top/categories/Hexo/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -225,7 +225,7 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/categories/Hexo/</loc>
+    <loc>https://lisui.top/categories/%E6%95%99%E7%A8%8B/CDN/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
