@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lisui.top/posts/348c00e5.html</loc>
+    
+    <lastmod>2024-06-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lisui.top/posts/83fe067a.html</loc>
+    
+    <lastmod>2024-06-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lisui.top/links/index.html</loc>
     
     <lastmod>2024-06-15</lastmod>
@@ -56,15 +74,6 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/posts/67e36e3e.html</loc>
-    
-    <lastmod>2024-06-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://lisui.top/posts/e29ba27e.html</loc>
     
     <lastmod>2024-06-13</lastmod>
@@ -110,42 +119,6 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/posts/efe4d5b4.html</loc>
-    
-    <lastmod>2024-06-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/posts/286470e0.html</loc>
-    
-    <lastmod>2024-06-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/posts/83fe067a.html</loc>
-    
-    <lastmod>2024-06-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/posts/348c00e5.html</loc>
-    
-    <lastmod>2024-06-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://lisui.top/posts/af19e490.html</loc>
     
     <lastmod>2024-06-13</lastmod>
@@ -173,13 +146,6 @@
 
   
   <url>
-    <loc>https://lisui.top/tags/Hexo/</loc>
-    <lastmod>2024-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://lisui.top/tags/%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -194,14 +160,14 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/tags/CDN/</loc>
+    <loc>https://lisui.top/tags/Hexo/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lisui.top/tags/%E9%9B%B7%E6%B1%A0/</loc>
+    <loc>https://lisui.top/tags/CDN/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -222,13 +188,6 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/tags/chatgpt/</loc>
-    <lastmod>2024-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://lisui.top/tags/%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -238,20 +197,6 @@
 
   
   <url>
-    <loc>https://lisui.top/categories/Solitude/</loc>
-    <lastmod>2024-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/categories/Hexo/</loc>
-    <lastmod>2024-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://lisui.top/categories/%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -259,21 +204,7 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/categories/%E6%95%99%E7%A8%8B/Butterfly/</loc>
-    <lastmod>2024-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/categories/chatgpt/</loc>
-    <lastmod>2024-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/categories/%E7%9F%A5%E8%AF%86/</loc>
+    <loc>https://lisui.top/categories/Solitude/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -287,14 +218,21 @@
   </url>
   
   <url>
-    <loc>https://lisui.top/categories/%E6%95%99%E7%A8%8B/%E9%9B%B7%E6%B1%A0/</loc>
+    <loc>https://lisui.top/categories/%E6%95%99%E7%A8%8B/Butterfly/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lisui.top/categories/AI/</loc>
+    <loc>https://lisui.top/categories/Hexo/</loc>
+    <lastmod>2024-06-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lisui.top/categories/%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2024-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
