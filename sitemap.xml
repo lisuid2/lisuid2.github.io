@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lisui.top/links/index.html</loc>
+    
+    <lastmod>2024-06-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lisui.top/posts/348c00e5.html</loc>
     
     <lastmod>2024-06-15</lastmod>
@@ -12,15 +21,6 @@
   
   <url>
     <loc>https://lisui.top/posts/83fe067a.html</loc>
-    
-    <lastmod>2024-06-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lisui.top/links/index.html</loc>
     
     <lastmod>2024-06-15</lastmod>
     
